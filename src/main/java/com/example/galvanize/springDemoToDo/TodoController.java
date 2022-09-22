@@ -1,5 +1,7 @@
 package com.example.galvanize.springDemoToDo;
 
+import org.hibernate.annotations.Filter;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,4 +75,11 @@ public class TodoController {
         //save the record
         return this.repository.save(oldTodo);
     }
+
+    //Filter Priority
+    @RequestMapping("/todo/filter")
+    public List<Todo> filterTodos(@RequestParam String filter) {
+        return this.repository.findAllByPriority(filter);
+    }
+
 }
