@@ -42,7 +42,7 @@ public class TodoControllerTest {
     void setup() {
         todo1 = new Todo();
         todo2 = new Todo();
-        todo1.setDescription("Take out trash");
+        todo1.setDescription("Take out Trash");
         todo1.setPriority("low");
         todo1.setDueDate(LocalDate.of(2022, 9, 23));
     }
@@ -96,9 +96,9 @@ public class TodoControllerTest {
 
         this.mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].description").value("Take out Trash"))
-                .andExpect(jsonPath("$[0].priority").value("low"))
-                .andExpect(jsonPath("$[0].dueDate").value("2022-09-23"));
+                .andExpect(jsonPath("$.description").value("Take out Trash"))
+                .andExpect(jsonPath("$.priority").value("low"))
+                .andExpect(jsonPath("$.dueDate").value("2022-09-23"));
 
     }
 
@@ -113,7 +113,6 @@ public class TodoControllerTest {
         String url = String.format("/todo/%d", todo1.getId());
         MockHttpServletRequestBuilder request = delete(url);
         this.mvc.perform(request)
-                .andExpect(status().isOk())
                 .andExpect(status().isNoContent());
         assertEquals(1, this.repository.count());
     }
